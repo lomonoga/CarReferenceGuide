@@ -1,6 +1,7 @@
 using CarReferenceGuide;
 using CarReferenceGuide.Application;
 using CarReferenceGuide.Application.Domain.Exceptions;
+using CarReferenceGuide.Data;
 using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Add components
 builder.Services.AddApi(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
-//builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddDataAccess(builder.Configuration);
 
 var app = builder.Build();
 

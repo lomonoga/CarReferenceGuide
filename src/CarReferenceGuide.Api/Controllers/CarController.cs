@@ -69,7 +69,7 @@ public class CarController : ControllerBase
     #endregion
     
     [HttpGet("get-all-cars")]
-    public async Task<IActionResult> GetAllCars(CancellationToken token)
+    public async Task<IActionResult> GetAllCars([FromQuery]CarsFilter filter,CancellationToken token)
     {
         LogInfo("GetAllCars");
         return Ok();
