@@ -1,0 +1,31 @@
+version: '3.5'
+
+volumes:
+  db:
+    driver: local
+
+services:
+  db:
+    build:
+      context: ./Docker
+      dockerfile: postgresql.Dockerfile
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root_password
+      - POSTGRES_DB=car_reference_guide
+    ports:
+      - 5432:5432
+    image: postgres:13.2-alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+    
+  car_reference_guide_api:
+    restart: always
+    ports:
+      - "80:80"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
