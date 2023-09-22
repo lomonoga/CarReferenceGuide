@@ -3,7 +3,7 @@ using CarReferenceGuide.Data.Domain.Interfaces;
 
 namespace CarReferenceGuide.Data.Domain.Models;
 
-public class ColorCar : IEntity
+public class Color : IEntity
 {
     [IgnoreDataMember] public List<Car> Cars { get; set; } = default!;
     public string? Name { get; set; }

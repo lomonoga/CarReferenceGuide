@@ -17,9 +17,9 @@ public class Car : IEntity
     public Drive Drive { get; set; }
     [Column(TypeName = "jsonb")] public List<FileData>? Photos { get; set; }
     
-    [IgnoreDataMember] public ColorCar? Color { get; set; }
-    [IgnoreDataMember] public Country? CountryOfManufacture { get; set; }
-    [IgnoreDataMember] public ModelCar Model { get; set; }
+    [IgnoreDataMember] public Color? Color { get; set; }
+    [IgnoreDataMember] public Country? Country { get; set; }
+    [IgnoreDataMember] public ModelCar? Model { get; set; }
     [IgnoreDataMember] public List<OwnerCar> Owners { get; set; } = default!;
     
     public Guid? Id { get; set; }

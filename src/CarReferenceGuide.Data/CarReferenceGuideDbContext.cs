@@ -12,7 +12,7 @@ public class CarReferenceGuideDbContext : DbContext
     }
     
     public DbSet<Car> Cars { get; set; } = default!;
-    public DbSet<ColorCar> Colors { get; set; } = default!;
+    public DbSet<Color> Colors { get; set; } = default!;
     public DbSet<Country> Countries { get; set; } = default!;
     public DbSet<OwnerCar> OwnersCars { get; set; } = default!;
     public DbSet<BrandCar> BrandsCars { get; set; } = default!;
@@ -32,7 +32,7 @@ public class CarReferenceGuideDbContext : DbContext
             .HasOne(e => e.Color)
             .WithMany(e => e.Cars)
             .OnDelete(DeleteBehavior.SetNull);
-        builder.Entity<ColorCar>()
+        builder.Entity<Color>()
             .HasAlternateKey(x => x.Name);
         builder.Entity<Country>()
             .HasAlternateKey(x => x.Name);

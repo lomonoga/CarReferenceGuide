@@ -15,7 +15,7 @@ public static class ConfigureServices
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        
+        services.AddMemoryCache();
         services.AddHttpContextAccessor();
         services.TryAddScoped<ISecurityService, SecurityService>();
         services.AddMediatR(conf => conf.RegisterServicesFromAssembly(assembly));

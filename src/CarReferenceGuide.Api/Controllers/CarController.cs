@@ -1,5 +1,6 @@
 using CarReferenceGuide.Application.Domain.Common.DTO.Car;
 using CarReferenceGuide.Application.Domain.Services.Interfaces;
+using CarReferenceGuide.Application.Handlers.Car;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +34,10 @@ public class CarController : ControllerBase
     #endregion
     
     [HttpPost("add-car")]
-    public async Task<IActionResult> AddCar([FromBody]AddCarRequest request, CancellationToken token)
+    public async Task<IActionResult> AddCar([FromBody] AddCarRequest request, CancellationToken token)
     {
         LogInfo("AddCar");
+        await _mediator.Send(new AddCar(request), token);
         return Ok();
     }
     
@@ -54,7 +56,8 @@ public class CarController : ControllerBase
     public async Task<IActionResult> GetCarById(Guid request, CancellationToken token)
     {
         LogInfo("GetCarById");
-        return Ok();
+        var car = await _mediator.Send(new GetCarById(request), token);
+        return Ok(car);
     }
     
     #region swaggerGetAllCars
