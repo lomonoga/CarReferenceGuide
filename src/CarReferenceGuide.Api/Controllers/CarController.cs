@@ -92,6 +92,7 @@ public class CarController : ControllerBase
     public async Task<IActionResult> DeleteCarById(Guid request, CancellationToken token)
     {
         LogInfo("DeleteCarById");
+        await _mediator.Send(new DeleteCarById(request), token);
         return Ok();
     }
     
