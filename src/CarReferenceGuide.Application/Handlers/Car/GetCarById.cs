@@ -24,7 +24,7 @@ public class GetCarByIdHandler : IRequestHandler<GetCarById, CarResponse>
     public async Task<CarResponse> Handle(GetCarById request, CancellationToken token)
     {
         _cache.TryGetValue(request.Id, out Data.Domain.Models.Car? carCash);
-        if (carCash is not null) return carCash.Adapt<CarResponse>();
+        if (carCash is not null && !carCash.IsDeleted) return carCash.Adapt<CarResponse>();
         var car = await _context.Cars
             .Include(c => c.Country)
             .Include(c => c.Color)
@@ -36,7 +36,7 @@ public class GetCarByIdHandler : IRequestHandler<GetCarById, CarResponse>
         
         // Caching the car
         _cache.Set(car.Id!, car, new MemoryCacheEntryOptions()
-            .SetAbsoluteExpiration(TimeSpan.FromHours(2)));
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
         
         return car.Adapt<CarResponse>();
     }

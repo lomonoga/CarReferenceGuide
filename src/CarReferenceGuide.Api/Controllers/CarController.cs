@@ -71,11 +71,12 @@ public class CarController : ControllerBase
 
     #endregion
     
-    [HttpGet("get-all-cars")]
-    public async Task<IActionResult> GetAllCars([FromQuery]CarsFilter filter,CancellationToken token)
+    [HttpPost("get-all-cars")]
+    public async Task<IActionResult> GetAllCars([FromQuery] CarsFilter filter, CancellationToken token)
     {
         LogInfo("GetAllCars");
-        return Ok();
+        var cars = await _mediator.Send(new GetAllCars(filter), token);
+        return Ok(cars);
     }
     
     #region swaggerDeleteCarById
@@ -98,6 +99,7 @@ public class CarController : ControllerBase
     
     /// <summary>
     /// Allows you to delete car by id
+    /// Pass only the values you want to change
     /// </summary>
     /// <returns>Status code</returns>
 
@@ -107,6 +109,7 @@ public class CarController : ControllerBase
     public async Task<IActionResult> EditCarById([FromBody]EditCarRequest request, CancellationToken token)
     {
         LogInfo("EditCarById");
+        await _mediator.Send(new EditCarById(request), token);
         return Ok();
     }
 
